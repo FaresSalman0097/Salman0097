@@ -1,0 +1,72 @@
+package Gmail_Test_Case;
+
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyEvent;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class Gmail_Compose_Mail {
+
+	public static void main(String[] args) throws InterruptedException, AWTException {
+		System.setProperty("webdriver.chrome.driver", "C:\\Selenium\\edgedriver_win64\\chromedriver_win32\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		//driver.manage().window().getSize();
+		driver.get("https://outlook.live.com");
+		String title = driver.getTitle();
+		 System.out.println(title);
+		Thread.sleep(5000);
+		driver.findElement(By.xpath("/html/body/header/div/aside/div/nav/ul/li[2]/a")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("#i0116")).sendKeys("seleniumtestt@outlook.com");
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("#idSIButton9")).click();		//next button
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("#i0118")).sendKeys("Selenium_test_1");
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("#idSIButton9")).click();		//login button
+		driver.findElement(By.cssSelector("#KmsiCheckboxField")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("#idSIButton9")).click();		//stay signin yes button
+		Thread.sleep(4000);
+		driver.findElement(By.cssSelector("#id__7")).click();        // new message button
+		Thread.sleep(5000);
+		driver.findElement(By.xpath("//input[@role='combobox']")).sendKeys("ibrahimjrsalman@gmail.com");		//to mail id
+		Thread.sleep(2000);
+		//driver.findElement(By.xpath("//div[contains(text(),'Use this address:')]")).click();
+		//Thread.sleep(3000);
+		driver.findElement(By.cssSelector("input[aria-label='Add a subject']")).sendKeys("Outlook automation test");
+		 // Actions act = new Actions(driver);
+		  //act.moveToElement(subject).sendKeys("Outlook automation test").build().perform();
+		  Thread.sleep(2000);
+		driver.findElement(By.cssSelector("div[aria-label='Message body']")).sendKeys("salman");
+		Thread.sleep(2000);
+		driver.findElement(By.cssSelector("button[aria-label='Attach']")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//span[contains(text(),'Browse this computer')]")).click();
+		Robot robot = new Robot();
+		 robot.setAutoDelay(2000);
+	      StringSelection selection = new StringSelection("D:\\testing\\test1");
+	      Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection,null);
+	      robot.setAutoDelay(1000);
+	      robot.keyPress(KeyEvent.VK_CONTROL); 
+	      robot.keyPress(KeyEvent.VK_V);
+	      robot.keyRelease(KeyEvent.VK_CONTROL);
+	      robot.keyRelease(KeyEvent.VK_V);
+	      robot.setAutoDelay(1000);
+	      robot.keyPress(KeyEvent.VK_ENTER);
+	      robot.keyRelease(KeyEvent.VK_ENTER);
+	      driver.findElement(By.xpath("//div[@aria-label='Send']")).click();
+	      //System.out.println(title);
+	      driver.close();
+	      driver.quit();
+	}
+}
